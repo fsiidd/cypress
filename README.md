@@ -1,7 +1,22 @@
-# README - cps406-sprint-2 
+# Sprint 2 - Group 114
 
-## Contributors: 
-Name: Faryal Siddiqui, Student ID: 501157845  
-Name: Nehal Goel, Student ID: 501224659  
-Name: Aneela Chaudhry, Student ID: 501240488  
-Name: Amira Adan, Student ID: 501237309  
+## 📘 Overview
+This document outlines the Sprint 2 deliverables for the **Cypress** project — a citizen-facing platform that allows Toronto residents to report, view, and track public infrastructure issues. The system will help streamline communication between citizens and city officials, replacing the current manual process.
+
+---
+
+## 👥 Team Members
+
+| Name | Student ID |
+|----------|--------|
+| Faryal Siddiqui | 501157845|
+| Nehal Goel | 501224659 |
+| Aneela Chaudhry | 501240488 |
+| Amira Adan | 501237309 |
+
+---
+
+
+
+
+
