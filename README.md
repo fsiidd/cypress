@@ -23,6 +23,7 @@ This file, sprint_114, is the official Sprint 2 submission for Project Cypress. 
 Product Backlog - Complete list of user stories and tasks with assigned priorities, estimated time to completion, actual effort (where applicable), and implementation status.
 Team Velocity Diagram - Visual representation of team performance measured in story points throughout the sprint.
 Sprint 3 Test Plan - Well-documented testing framework for general, user, admin, security, and performance functionality. Includes inputs, expected outputs, and criteria for success.
+
 1.4 - Project Description
 Cypress is designed to empower citizens by making it easier to report and handle local issues. Citizens can quickly report issues (potholes, streetlight outages, or graffiti) using its user-friendly map-based reporting interface and secure login system. They can also receive updates as city authorities handle and address their complaints. In turn, the dashboard allows city authorities to examine, assign, filter, and evaluate concerns that have been reported. The system includes features to prevent spam, enhance user experience, and ensure data integrity.
 
