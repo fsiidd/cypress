@@ -1,7 +1,5 @@
-# Sprint 2 - Group 114
-
 ## 📘 Overview
-This document outlines the Sprint 2 deliverables for the **Cypress** project — a citizen-facing platform that allows Toronto residents to report, view, and track public infrastructure issues. The system will help streamline communication between citizens and city officials, replacing the current manual process.
+This document outlines the deliverables for the **Cypress** project — a citizen-facing platform that allows Toronto residents to report, view, and track public infrastructure issues. The system will help streamline communication between citizens and city officials, replacing the current manual process.
 
 ---
 
