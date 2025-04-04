@@ -26,39 +26,47 @@ public class Main {
                 switch (choice) {
                     case 1:
                         System.out.print("Enter full name: ");
-                        String nameC = scanner.nextLine();
+                        String nameC = scanner.nextLine().trim();
                         System.out.print("Enter email: ");
-                        String emailC = scanner.nextLine();
+                        String emailC = scanner.nextLine().trim();
                         System.out.print("Choose username: ");
-                        String userC = scanner.nextLine();
+                        String userC = scanner.nextLine().trim();
                         System.out.print("Choose password: ");
-                        String passC = scanner.nextLine();
+                        String passC = scanner.nextLine().trim();
+
+                        if (nameC.isEmpty() || emailC.isEmpty() || userC.isEmpty() || passC.isEmpty()) {
+                            System.out.println("❌ All fields are required. Please try again.");
+                            break;
+                        }
 
                         boolean regC = UserManager.registerCitizen(nameC, emailC, userC, passC);
                         if (regC) {
-                            System.out.println("Account created successfully! Redirecting to login screen...");
+                            System.out.println("✅ Account created successfully! Redirecting to login screen...");
                         } else {
-                            System.out.println("Username already exists. Please try a different one.");
+                            System.out.println("❌ Username already exists. Please try a different one.");
                         }
-                        break;
 
                     case 2:
                         System.out.print("Enter full name: ");
-                        String nameA = scanner.nextLine();
+                        String nameA = scanner.nextLine().trim();
                         System.out.print("Enter government email: ");
-                        String emailA = scanner.nextLine();
+                        String emailA = scanner.nextLine().trim();
                         System.out.print("Choose username: ");
-                        String userA = scanner.nextLine();
+                        String userA = scanner.nextLine().trim();
                         System.out.print("Choose password: ");
-                        String passA = scanner.nextLine();
+                        String passA = scanner.nextLine().trim();
+
+                        if (nameA.isEmpty() || emailA.isEmpty() || userA.isEmpty() || passA.isEmpty()) {
+                            System.out.println("❌ All fields are required. Please try again.");
+                            break;
+                        }
 
                         boolean regA = UserManager.registerAdmin(nameA, emailA, userA, passA);
                         if (regA) {
-                            System.out.println("City official account created and verified.");
+                            System.out.println("✅ City official account created and verified.");
                         } else {
-                            System.out.println("Invalid or already registered email. Must use @toronto.ca.");
+                            System.out.println("❌ Invalid or already registered email. Must use @toronto.ca.");
                         }
-                        break;
 
                     case 3:
                         System.out.print("Username: ");
