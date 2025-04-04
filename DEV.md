@@ -11,7 +11,7 @@ If you're ever unsure, reach out in the team Discord.
 Cloning a repo means you're downloading a copy of the project to your computer.
 
 ```bash
-git@github.com:fsiidd/cypress.git
+git clone git@github.com:fsiidd/cypress.git
 cd cypress
 ```
 
