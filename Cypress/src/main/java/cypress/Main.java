@@ -1,5 +1,7 @@
 package cypress;
 
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -131,12 +133,46 @@ public class Main {
 
                     switch (dashChoice) {
                         case 1:
-                            System.out.print("Enter report description: ");
-                            String desc = scanner.nextLine();
-                            Report report = new Report(desc);
-                            ReportSystem.submitReport(report);
-                            System.out.println("Report submitted!");
-                            break;
+                            
+   			    System.out.print("Enter report type: ");
+    			    String type = scanner.nextLine();
+
+    			   
+    			    System.out.print("Enter report description: ");
+    			    String desc = scanner.nextLine();
+
+    			    
+   			    System.out.print("Enter report date (YYYY-MM-DD): ");
+    			    String dateStr = scanner.nextLine();
+    			    
+    			    LocalDate date;
+    			    try {
+        		   	date = LocalDate.parse(dateStr);
+   		 	    } catch (Exception e) {
+        		  	System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+        		   	break;
+    			    }
+
+    			   System.out.print("Enter report location latitude: ");
+    			   double latitude;
+    			   try {
+        		   	latitude = Double.parseDouble(scanner.nextLine());
+    			   } catch (Exception e) {
+        		   	System.out.println("Invalid latitude. Please enter a valid number.");
+        			break;
+    			   }
+			   System.out.print("Enter report location longitude: ");
+    			   double longitude;
+    			   try {
+        			longitude = Double.parseDouble(scanner.nextLine());
+   	 		   } catch (Exception e) {
+        			System.out.println("Invalid longitude. Please enter a valid number.");
+        			break;
+    			   }
+    			   Report report = new Report(type, desc, date,  latitude, longitude);
+    			   ReportSystem.submitReport(report);
+    			   System.out.println("Report submitted!");
+  			   break;
                         case 2:
                             ReportSystem.printReports(); // or filter by user if needed
                             break;
