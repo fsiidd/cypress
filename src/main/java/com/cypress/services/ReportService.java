@@ -32,5 +32,39 @@ public class ReportService {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
     }
+    
+    public boolean isSpam(Report report) {
+    String description = report.getDescription().toLowerCase();
+    String[] words = description.trim().split("\\s+");
+
+    // Rule 1: Too short
+    if (words.length < 5) {
+        return true;
+    }
+
+    // Rule 2: Known spammy patterns
+    String[] spamWords = {"asdf", "test", "spam", "dummy", "fake"};
+    for (String word : words) {
+        for (String spam : spamWords) {
+            if (word.contains(spam)) {
+                return true;
+            }
+        }
+    }
+
+    // Rule 3: Excessive repetition
+    int repeatCount = 0;
+    for (int i = 1; i < words.length; i++) {
+        if (words[i].equals(words[i - 1])) {
+            repeatCount++;
+        }
+    }
+    if (repeatCount > 3) {
+        return true;
+    }
+
+    return false;
+  }
+
 }
 

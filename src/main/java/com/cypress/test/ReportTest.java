@@ -22,6 +22,17 @@ public class ReportTest {
         } else {
             System.out.println("✅ No duplicates found.");
         }
+	
+	System.out.println("🧪 Testing spam detection...");
+
+	Report spamReport = new Report(43.65, -79.38, "Pothole", "asdf asdf asdf asdf asdf");
+	boolean isSpam = service.isSpam(spamReport);
+	if (isSpam) {
+    		System.out.println("🚨 Spam detected!");
+	} else {
+    		System.out.println("✅ Report is clean.");
+	}
+
     }
 }
 
