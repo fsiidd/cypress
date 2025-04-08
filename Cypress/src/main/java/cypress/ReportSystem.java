@@ -16,7 +16,8 @@ public class ReportSystem {
             System.out.println("Submitted Reports:");
             for (int i = 0; i < reports.size(); i++) {
 		Report r = reports.get(i);
-                System.out.println((i + 1) + ". Type: " + r.getType() + ", Description: " + r.getDescription() + ", Date: " + r.getDate());
+                System.out.println((i + 1) + ". Type: " + r.getType() + ", Description: " + r.getDescription() + ", Date: " + r.getDate() +
+                ", Location: (" + r.getLatitude() + ", " + r.getLongitude() + ")");
             }
         }
     }
