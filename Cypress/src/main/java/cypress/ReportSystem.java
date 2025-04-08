@@ -15,7 +15,8 @@ public class ReportSystem {
         } else {
             System.out.println("Submitted Reports:");
             for (int i = 0; i < reports.size(); i++) {
-                System.out.println((i + 1) + ". " + reports.get(i).getDescription());
+		Report r = reports.get(i);
+                System.out.println((i + 1) + ". Type: " + r.getType() + ", Description: " + r.getDescription() + ", Date: " + r.getDate());
             }
         }
     }

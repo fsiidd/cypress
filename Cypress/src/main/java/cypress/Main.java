@@ -1,5 +1,7 @@
 package cypress;
 
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -126,12 +128,31 @@ public class Main {
 
                     switch (dashChoice) {
                         case 1:
-                            System.out.print("Enter report description: ");
-                            String desc = scanner.nextLine();
-                            Report report = new Report(desc);
-                            ReportSystem.submitReport(report);
-                            System.out.println("Report submitted!");
-                            break;
+                            // Prompt for issue type
+   			    System.out.print("Enter report type: ");
+    			    String type = scanner.nextLine();
+
+    			    // Prompt for description
+    			    System.out.print("Enter report description: ");
+    			    String desc = scanner.nextLine();
+
+    			    // Prompt for date
+   			    System.out.print("Enter report date (YYYY-MM-DD): ");
+    			    String dateStr = scanner.nextLine();
+    			    // Parse the entered date string to a LocalDate object
+    			    LocalDate date;
+    			   try {
+        		   	date = LocalDate.parse(dateStr);
+   		 	   } catch (Exception e) {
+        		  	System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+        		   	break;
+    			   }
+
+    			   // Create the report using the new constructor
+    			   Report report = new Report(type, desc, date);
+    			   ReportSystem.submitReport(report);
+    			   System.out.println("Report submitted!");
+  			   break;
                         case 2:
                             ReportSystem.printReports(); // or filter by user if needed
                             break;
