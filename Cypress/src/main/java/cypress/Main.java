@@ -48,6 +48,8 @@ public class Main {
                             System.out.println("❌ Username already exists. Please try a different one.");
                         }
 
+                        break;
+
                     case 2:
                         System.out.print("Enter full name: ");
                         String nameA = scanner.nextLine().trim();
@@ -69,6 +71,8 @@ public class Main {
                         } else {
                             System.out.println("❌ Invalid or already registered email. Must use @toronto.ca.");
                         }
+
+                        break;
 
                     case 3:
                         System.out.print("Username: ");
@@ -92,6 +96,7 @@ public class Main {
 
                     default:
                         System.out.println("Invalid option.");
+
                 }
             } else {
                 // ===== LOGGED-IN DASHBOARD =====
