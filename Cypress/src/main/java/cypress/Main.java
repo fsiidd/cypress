@@ -1,5 +1,6 @@
 package cypress;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Main {
         boolean running = true;
         User currentUser = null;
 
-        System.out.println("Welcome to Cypress CLI!");
+        System.out.println("Welcome to Cypress CLI");
 
         while (running) {
             if (currentUser == null) {
@@ -21,7 +22,7 @@ public class Main {
                 System.out.print("> ");
 
                 int choice = scanner.nextInt();
-                scanner.nextLine(); // consume newline
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -40,7 +41,12 @@ public class Main {
                         }
 
                         boolean regC = UserManager.registerCitizen(nameC, emailC, userC, passC);
-                        System.out.println(regC ? "✅ Account created! Redirecting to login..." : "❌ Username already exists.");
+                        if (regC) {
+                            System.out.println("✅ Account created successfully! Redirecting to login screen...");
+                        } else {
+                            System.out.println("❌ Username already exists. Please try a different one.");
+                        }
+
                         break;
 
                     case 2:
@@ -59,7 +65,12 @@ public class Main {
                         }
 
                         boolean regA = UserManager.registerAdmin(nameA, emailA, userA, passA);
-                        System.out.println(regA ? "✅ City official account created." : "❌ Invalid or duplicate email.");
+                        if (regA) {
+                            System.out.println("✅ City official account created and verified.");
+                        } else {
+                            System.out.println("❌ Invalid or already registered email. Must use @toronto.ca.");
+                        }
+
                         break;
 
                     case 3:
@@ -87,76 +98,26 @@ public class Main {
 
             } else {
                 boolean isAdmin = currentUser instanceof Admin;
-                System.out.println("\nWelcome, " + currentUser.getUsername() +
-                        " (" + (isAdmin ? "City Official" : "Citizen") + ")");
+                System.out.println("\nWelcome, " + currentUser.getUsername() + " (" + (isAdmin ? "City Official" : "Citizen") + ")");
 
-                System.out.println("1. Submit a report");
-                System.out.println("2. View submitted reports");
                 if (isAdmin) {
-                    System.out.println("3. Admin: View & Filter Reports");
-                    System.out.println("4. Update Report Status");
-                    System.out.println("5. Logout");
-                } else {
+                    System.out.println("1. View All Reports");
+                    System.out.println("2. Update Report Status");
                     System.out.println("3. Logout");
-                }
+                    System.out.print("> ");
 
-                System.out.print("> ");
-                int dashChoice = scanner.nextInt();
-                scanner.nextLine();
+                    int dashChoice = scanner.nextInt();
+                    scanner.nextLine();
 
-                switch (dashChoice) {
-                    case 1:
-                        System.out.print("Enter report description: ");
-                        String desc = scanner.nextLine();
-                        System.out.print("Enter report type (e.g., Pothole, Graffiti): ");
-                        String type = scanner.nextLine();
-
-                        Report report = new Report(desc, type, currentUser.getUsername());
-                        ReportSystem.submitReport(report);
-                        System.out.println("✅ Report submitted!");
-                        break;
-
-                    case 2:
-                        if (isAdmin) {
+                    switch (dashChoice) {
+                        case 1:
                             ReportSystem.printReports();
-                        } else {
-                            List<Report> userReports = ReportSystem.getReportsByUser(currentUser.getUsername());
-                            if (userReports.isEmpty()) {
-                                System.out.println("You have not submitted any reports yet.");
-                            } else {
-                                System.out.println("Your Submitted Reports:");
-                                for (Report r : userReports) {
-                                    System.out.println(r);
-                                }
-                            }
-                        }
-                        break;
-
-                    case 3:
-                        if (isAdmin) {
-                            System.out.print("Enter report type to filter by: ");
-                            String filterType = scanner.nextLine();
-                            List<Report> filtered = ReportSystem.filterReportsByType(filterType);
-
-                            if (filtered.isEmpty()) {
-                                System.out.println("No reports found for that type.");
-                            } else {
-                                for (Report r : filtered) {
-                                    System.out.println(r);
-                                }
-                            }
-                        } else {
-                            currentUser = null;
-                            System.out.println("Logged out.");
-                        }
-                        break;
-
-                    case 4:
-                        if (isAdmin) {
+                            break;
+                        case 2:
                             ReportSystem.printReportsWithIndexes();
                             System.out.print("Enter the index of the report to update: ");
                             int index = scanner.nextInt();
-                            scanner.nextLine(); // consume newline
+                            scanner.nextLine();
 
                             System.out.println("Choose new status:");
                             for (Status s : Status.values()) {
@@ -172,22 +133,85 @@ public class Main {
                             } catch (IllegalArgumentException e) {
                                 System.out.println("❌ Invalid status value.");
                             }
-                        } else {
-                            System.out.println("Invalid option.");
-                        }
-                        break;
-
-                    case 5:
-                        if (isAdmin) {
+                            break;
+                        case 3:
                             currentUser = null;
                             System.out.println("Logged out.");
-                        } else {
+                            break;
+                        default:
                             System.out.println("Invalid option.");
-                        }
-                        break;
+                    }
+                } else {
+                    System.out.println("1. Submit a report");
+                    System.out.println("2. View submitted reports");
+                    System.out.println("3. Logout");
+                    System.out.print("> ");
 
-                    default:
-                        System.out.println("Invalid option.");
+                    int dashChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (dashChoice) {
+                        case 1:
+                            System.out.print("Enter report type: ");
+                            String type = scanner.nextLine();
+
+                            System.out.print("Enter report description: ");
+                            String desc = scanner.nextLine();
+
+                            System.out.print("Enter report date (YYYY-MM-DD): ");
+                            String dateStr = scanner.nextLine();
+                            LocalDate date;
+                            try {
+                                date = LocalDate.parse(dateStr);
+                            } catch (Exception e) {
+                                System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+                                break;
+                            }
+
+                            System.out.print("Enter report location latitude: ");
+                            double latitude;
+                            try {
+                                latitude = Double.parseDouble(scanner.nextLine());
+                            } catch (Exception e) {
+                                System.out.println("Invalid latitude. Please enter a valid number.");
+                                break;
+                            }
+
+                            System.out.print("Enter report location longitude: ");
+                            double longitude;
+                            try {
+                                longitude = Double.parseDouble(scanner.nextLine());
+                            } catch (Exception e) {
+                                System.out.println("Invalid longitude. Please enter a valid number.");
+                                break;
+                            }
+
+                            // 💥 NEW: Include submittedBy in constructor
+                            Report report = new Report(type, desc, date, latitude, longitude, currentUser.getUsername());
+                            ReportSystem.submitReport(report);
+                            System.out.println("Report submitted!");
+                            break;
+
+                        case 2:
+                            List<Report> userReports = ReportSystem.getReportsByUser(currentUser.getUsername());
+                            if (userReports.isEmpty()) {
+                                System.out.println("You have not submitted any reports yet.");
+                            } else {
+                                System.out.println("Your Submitted Reports:");
+                                for (Report r : userReports) {
+                                    System.out.println(r);
+                                }
+                            }
+                            break;
+
+                        case 3:
+                            currentUser = null;
+                            System.out.println("Logged out.");
+                            break;
+
+                        default:
+                            System.out.println("Invalid option.");
+                    }
                 }
             }
         }
