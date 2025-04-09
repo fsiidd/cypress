@@ -1,8 +1,8 @@
-package com.cypress.services;
+package cypress;
 
 import java.util.List;
 
-import com.cypress.models.Report;
+import cypress.Report;
 
 public class ReportService {
     private static final double DUPLICATE_RADIUS_METERS = 100;

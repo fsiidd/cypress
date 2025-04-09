@@ -133,7 +133,7 @@ public class Main {
                         case 1:
                             System.out.print("Enter report description: ");
                             String desc = scanner.nextLine();
-                            Report report = new Report(desc);
+                            Report report = new Report(0.0, 0.0, "Unknown", desc);
                             ReportSystem.submitReport(report);
                             System.out.println("Report submitted!");
                             break;

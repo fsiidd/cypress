@@ -1,9 +1,9 @@
-package com.cypress.test;
+package cypress;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.cypress.models.Report;
-import com.cypress.services.ReportService;
+import cypress.Report;
+import cypress.ReportService;
 
 public class ReportTest {
     public static void main(String[] args) {
