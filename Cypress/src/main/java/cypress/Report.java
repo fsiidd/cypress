@@ -9,12 +9,11 @@ public class Report {
     private final double latitude;
     private final double longitude;
 
-
     public Report(String type, String description, LocalDate date, double latitude, double longitude) {
         this.type = type;
         this.description = description;
         this.date = date;
-	this.latitude = latitude;
+        this.latitude = latitude;
         this.longitude = longitude;
     }
 
@@ -29,6 +28,7 @@ public class Report {
     public LocalDate getDate() {
         return date;
     }
+
     public double getLatitude() {
         return latitude;
     }

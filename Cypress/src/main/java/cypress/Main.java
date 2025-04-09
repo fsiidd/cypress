@@ -1,6 +1,5 @@
 package cypress;
 
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -35,58 +34,33 @@ public class Main {
                         String userC = scanner.nextLine().trim();
                         System.out.print("Choose password: ");
                         String passC = scanner.nextLine().trim();
-
-                        if (nameC.isEmpty() || emailC.isEmpty() || userC.isEmpty() || passC.isEmpty()) {
-                            System.out.println("❌ All fields are required. Please try again.");
-                            break;
-                        }
-
-                        boolean regC = UserManager.registerCitizen(nameC, emailC, userC, passC);
-                        if (regC) {
-                            System.out.println("✅ Account created successfully! Redirecting to login screen...");
-                        } else {
-                            System.out.println("❌ Username already exists. Please try a different one.");
-                        }
-
+                        currentUser = new Citizen(nameC, emailC, userC, passC);
+                        System.out.println("Signed up and logged in as Citizen.");
                         break;
 
                     case 2:
                         System.out.print("Enter full name: ");
                         String nameA = scanner.nextLine().trim();
-                        System.out.print("Enter government email: ");
+                        System.out.print("Enter email: ");
                         String emailA = scanner.nextLine().trim();
                         System.out.print("Choose username: ");
                         String userA = scanner.nextLine().trim();
                         System.out.print("Choose password: ");
                         String passA = scanner.nextLine().trim();
-
-                        if (nameA.isEmpty() || emailA.isEmpty() || userA.isEmpty() || passA.isEmpty()) {
-                            System.out.println("❌ All fields are required. Please try again.");
-                            break;
-                        }
-
-                        boolean regA = UserManager.registerAdmin(nameA, emailA, userA, passA);
-                        if (regA) {
-                            System.out.println("✅ City official account created and verified.");
-                        } else {
-                            System.out.println("❌ Invalid or already registered email. Must use @toronto.ca.");
-                        }
-
+                        currentUser = new Admin(nameA, emailA, userA, passA);
+                        System.out.println("Signed up and logged in as Admin.");
                         break;
 
                     case 3:
-                        System.out.print("Username: ");
-                        String loginUser = scanner.nextLine();
-                        System.out.print("Password: ");
-                        String loginPass = scanner.nextLine();
-
-
-                        currentUser = UserManager.login(loginUser, loginPass);
-
+                        System.out.print("Enter username: ");
+                        String username = scanner.nextLine();
+                        System.out.print("Enter password: ");
+                        String password = scanner.nextLine();
+                        currentUser = UserManager.login(username, password);
                         if (currentUser != null) {
-                            System.out.println("Login successful! Welcome, " + currentUser.getUsername() + ".");
+                            System.out.println("Login successful!");
                         } else {
-                            System.out.println("Invalid credentials.");
+                            System.out.println("Login failed. Try again.");
                         }
                         break;
 
@@ -95,23 +69,87 @@ public class Main {
                         break;
 
                     default:
-                        System.out.println("Invalid option.");
-
+                        System.out.println("Invalid option. Try again.");
+                        break;
                 }
             } else {
-                // ===== LOGGED-IN DASHBOARD =====
-                boolean isAdmin = currentUser instanceof Admin;
-                System.out.println("\nWelcome, " + currentUser.getUsername() + " (" + (isAdmin ? "City Official" : "Citizen") + ")");
-
-                if (isAdmin) {
-                    System.out.println("1. View All Reports");
-                    System.out.println("2. Logout");
+                if (currentUser instanceof Citizen) {
+                    // ===== CITIZEN MENU =====
+                    System.out.println("\nCitizen Menu:");
+                    System.out.println("1. Submit a Report");
+                    System.out.println("2. View My Reports");
+                    System.out.println("3. Log out");
                     System.out.print("> ");
 
-                    int dashChoice = scanner.nextInt();
-                    scanner.nextLine();
+                    int citizenChoice = scanner.nextInt();
+                    scanner.nextLine(); // consume newline
 
-                    switch (dashChoice) {
+                    switch (citizenChoice) {
+                        case 1:
+                            System.out.print("Enter report type: ");
+                            String type = scanner.nextLine();
+
+                            System.out.print("Enter report description: ");
+                            String desc = scanner.nextLine();
+
+                            System.out.print("Enter report date (YYYY-MM-DD): ");
+                            String dateStr = scanner.nextLine();
+
+                            LocalDate date;
+                            try {
+                                date = LocalDate.parse(dateStr);
+                            } catch (Exception e) {
+                                System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+                                break;
+                            }
+
+                            System.out.print("Enter report location latitude: ");
+                            double latitude;
+                            try {
+                                latitude = Double.parseDouble(scanner.nextLine());
+                            } catch (Exception e) {
+                                System.out.println("Invalid latitude. Please enter a valid number.");
+                                break;
+                            }
+
+                            System.out.print("Enter report location longitude: ");
+                            double longitude;
+                            try {
+                                longitude = Double.parseDouble(scanner.nextLine());
+                            } catch (Exception e) {
+                                System.out.println("Invalid longitude. Please enter a valid number.");
+                                break;
+                            }
+
+                            Report report = new Report(type, desc, date, latitude, longitude);
+                            ReportSystem.submitReport(report);
+                            System.out.println("Report submitted!");
+                            break;
+
+                        case 2:
+                            ReportSystem.printReports(); // or filter by user if needed
+                            break;
+
+                        case 3:
+                            currentUser = null;
+                            System.out.println("Logged out.");
+                            break;
+
+                        default:
+                            System.out.println("Invalid option.");
+                            break;
+                    }
+                } else if (currentUser instanceof Admin) {
+                    // ===== ADMIN MENU =====
+                    System.out.println("\nAdmin Menu:");
+                    System.out.println("1. View All Reports");
+                    System.out.println("2. Log out");
+                    System.out.print("> ");
+
+                    int adminChoice = scanner.nextInt();
+                    scanner.nextLine(); // consume newline
+
+                    switch (adminChoice) {
                         case 1:
                             ReportSystem.printReports();
                             break;
@@ -121,73 +159,13 @@ public class Main {
                             break;
                         default:
                             System.out.println("Invalid option.");
-                    }
-                } else {
-                    System.out.println("1. Submit a report");
-                    System.out.println("2. View submitted reports");
-                    System.out.println("3. Logout");
-                    System.out.print("> ");
-
-                    int dashChoice = scanner.nextInt();
-                    scanner.nextLine();
-
-                    switch (dashChoice) {
-                        case 1:
-                            
-   			    System.out.print("Enter report type: ");
-    			    String type = scanner.nextLine();
-
-    			   
-    			    System.out.print("Enter report description: ");
-    			    String desc = scanner.nextLine();
-
-    			    
-   			    System.out.print("Enter report date (YYYY-MM-DD): ");
-    			    String dateStr = scanner.nextLine();
-    			    
-    			    LocalDate date;
-    			    try {
-        		   	date = LocalDate.parse(dateStr);
-   		 	    } catch (Exception e) {
-        		  	System.out.println("Invalid date format. Please use YYYY-MM-DD.");
-        		   	break;
-    			    }
-
-    			   System.out.print("Enter report location latitude: ");
-    			   double latitude;
-    			   try {
-        		   	latitude = Double.parseDouble(scanner.nextLine());
-    			   } catch (Exception e) {
-        		   	System.out.println("Invalid latitude. Please enter a valid number.");
-        			break;
-    			   }
-			   System.out.print("Enter report location longitude: ");
-    			   double longitude;
-    			   try {
-        			longitude = Double.parseDouble(scanner.nextLine());
-   	 		   } catch (Exception e) {
-        			System.out.println("Invalid longitude. Please enter a valid number.");
-        			break;
-    			   }
-    			   Report report = new Report(type, desc, date,  latitude, longitude);
-    			   ReportSystem.submitReport(report);
-    			   System.out.println("Report submitted!");
-  			   break;
-                        case 2:
-                            ReportSystem.printReports(); // or filter by user if needed
                             break;
-                        case 3:
-                            currentUser = null;
-                            System.out.println("Logged out.");
-                            break;
-                        default:
-                            System.out.println("Invalid option.");
                     }
                 }
             }
         }
 
         System.out.println("Goodbye!");
-        scanner.close();
     }
 }
+
