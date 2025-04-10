@@ -9,7 +9,7 @@ public class ReportService {
 
     public boolean isDuplicate(Report newReport, List<Report> existingReports) {
         for (Report report : existingReports) {
-            if (report.getIssueType().equalsIgnoreCase(newReport.getIssueType())) {
+            if (report.getType().equalsIgnoreCase(newReport.getType())) {
                 double distance = haversineDistance(
                     report.getLatitude(), report.getLongitude(),
                     newReport.getLatitude(), newReport.getLongitude()
