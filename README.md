@@ -1,36 +1,55 @@
-## 📘 Overview
-This document outlines the deliverables for the **Cypress** project — a citizen-facing platform that allows Toronto residents to report, view, and track public infrastructure issues. The system will help streamline communication between citizens and city officials, replacing the current manual process.
+# 🚧 Cypress — Civic Issue Reporting System
+
+Cypress is a citizen-facing CLI-based platform that allows Toronto residents to report, track, and follow up on local public infrastructure issues such as potholes, graffiti, or streetlight outages. The system is designed to streamline communication between citizens and city officials and replace the manual complaint process with an efficient digital workflow.
 
 ---
 
-## 👥 Team Members
+## 🧠 Features
 
-| Name | Student ID |
-|----------|--------|
-| Faryal Siddiqui | 501157845|
-| Nehal Goel | 501224659 |
-| Aneela Chaudhry | 501240488 |
-| Amira Adan | 501237309 |
+- **User Sign-up/Login**  
+  Citizens and admins can securely register and authenticate.
+
+- **Submit Reports**  
+  Citizens can report public issues with descriptions, location coordinates, and a date.
+
+- **Spam & Duplicate Detection**  
+  Cypress uses smart rules to block spam reports and near-duplicate issues within 100 meters.
+
+- **View My Reports**  
+  Logged-in citizens can view their own report history.
+
+- **Admin Dashboard**  
+  Admins can:
+  - View all submitted reports
+  - Filter reports by **type** (e.g. pothole, graffiti)
+  - Filter reports by **status** (NEW, IN_PROGRESS, CLOSED)
+  - Update report status to track progress
 
 ---
 
-1.2 - File Overview
-This file, sprint_114, is the official Sprint 2 submission for Project Cypress. It’s organized following the course requirements for Sprints 2 and 3, and it outlines the current status of our software engineering project. Cypress is a community-focused web platform that enables citizens to report local issues directly to city authorities using an interactive map interface. Our Sprint 2 goal was to establish a foundational product backlog, implement high-priority features, and prepare for thorough testing in Sprint 3.
+## 🏗️ Tech Stack
 
-1.3 - Contents of this File
-Product Backlog - Complete list of user stories and tasks with assigned priorities, estimated time to completion, actual effort (where applicable), and implementation status.
-Team Velocity Diagram - Visual representation of team performance measured in story points throughout the sprint.
-Sprint 3 Test Plan - Well-documented testing framework for general, user, admin, security, and performance functionality. Includes inputs, expected outputs, and criteria for success.
+- Java  
+- CLI-based Interface  
+- Object-Oriented Design Principles
 
-1.4 - Project Description
-Cypress is designed to empower citizens by making it easier to report and handle local issues. Citizens can quickly report issues (potholes, streetlight outages, or graffiti) using its user-friendly map-based reporting interface and secure login system. They can also receive updates as city authorities handle and address their complaints. In turn, the dashboard allows city authorities to examine, assign, filter, and evaluate concerns that have been reported. The system includes features to prevent spam, enhance user experience, and ensure data integrity.
+---
 
+## 👥 Contributors
 
+| Name            | 
+|-----------------|
+| Faryal Siddiqui | 
+| Nehal Goel      |
+| Aneela Chaudhry |
+| Amira Adan      | 
 
+---
 
+## 📦 Getting Started
 
+To run the application:
 
-
-
-
-
+```bash
+javac -d out $(find . -name "*.java")
+java -cp out cypress.Main
