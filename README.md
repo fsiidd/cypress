@@ -37,12 +37,11 @@ Cypress is a citizen-facing CLI-based platform that allows Toronto residents to 
 
 ## 👥 Contributors
 
-| Name            | 
-|-----------------|
-| Faryal Siddiqui | 
-| Nehal Goel      |
-| Aneela Chaudhry |
-| Amira Adan      | 
+- Faryal Siddiqui
+- Nehal Goel 
+- Aneela Chaudhry
+- Amira Adan
+
 
 ---
 
